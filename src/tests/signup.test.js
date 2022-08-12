@@ -25,6 +25,11 @@ describe("POST - signup", () => {
         expect(ress.body.ress).toBe("userRepeat");
         expect(ress.statusCode).toBe(203);
     })
+    test.only("malformed data or missing", async () => {
+        const ress = await POSTsignup("passwaaaord", "fullNaaaame","Gmail");
+        expect(ress.body.ress == "malformed data or missing" || "name user > 5").toBeTruthy()
+        expect(ress.statusCode).toBe(400)
+    })
 
 });
 

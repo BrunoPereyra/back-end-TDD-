@@ -1,13 +1,10 @@
 const { Schema, model } = require("mongoose")
 
 const SchemaUser = new Schema({
-    nameUser: {
-        type: String,
-        require: true
-    },
+    nameUser: String,
+    passwordHash: String,
     fullName: String,
     Gmail: String,
-    passwordHash: String
 })
 // SchemaUser.set("toJSON", {
 //     transform: (document, returnedObject) => {
