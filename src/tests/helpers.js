@@ -1,6 +1,6 @@
 const supertest = require("supertest")
-const { server } = require("../index")
-const api = supertest(server)
+const { app } = require("../index")
+const api = supertest(app)
 
 const POSTsignup = async (
     nameUser = false,
@@ -8,7 +8,7 @@ const POSTsignup = async (
     fullName = false,
     Gmail = false
 ) => {
-    const userData = {
+    const userData =  {
         nameUser,
         password,
         fullName,
@@ -18,7 +18,6 @@ const POSTsignup = async (
         .post("/signup")
         .set('Content-type', 'application/json')
         .send(userData)
-        .expect(201)
 
     return ress
 }

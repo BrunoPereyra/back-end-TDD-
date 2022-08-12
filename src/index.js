@@ -17,4 +17,4 @@ const server = app.listen(config.PORT, () => {
     console.log("server on port 3000");
 })
 
-module.exports = { server }
+module.exports = { server,app }
