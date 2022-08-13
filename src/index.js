@@ -8,6 +8,7 @@ const notFound = require("./middleware/notFound")
 app.use(express.json())
 
 app.use("/signup", require("./routes/signup.routes"))
+app.use("/login", require("./routes/login.routes"))
 
 app.use(handleErrors)
 app.use(notFound)
