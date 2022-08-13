@@ -5,7 +5,7 @@ const Users = require("../models/users")
 
 
 
-describe("POST - signup", () => {
+describe("POST - /signup TEST", () => {
     test("correct data", async () => {
         await Users.deleteMany({})
 

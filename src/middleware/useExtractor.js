@@ -1,3 +1,4 @@
+const {privatekey} = require("../config")
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
@@ -8,7 +9,7 @@ module.exports = async (req, res, next) => {
         token = authorization.substring(7)
     }
     try {
-        const decodetoken = jwt.verify(token, process.env.privateKey)
+        const decodetoken = jwt.verify(token, privatekey)
         if (!token || !decodetoken.id) {
             return res.status(401).json({ error: 'token missing or invalid' })
         }
