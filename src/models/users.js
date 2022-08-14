@@ -6,15 +6,15 @@ const SchemaUser = new Schema({
     fullName: String,
     Gmail: String,
     typetUser: String,
-    productos: [{
+    phonenumber: Number,
+    direction: Array,
+    shopping: Array,
+    sales: Array,
+    lastVisitedProduct: String,
+    Products: [{
         type: Schema.Types.ObjectId,
         ref: "Products"
     }],
-    phonenumber: Number,
-    direction: Array,
-    compras: Array,
-    ventas: Array,
-    lastVisitedProduct: String,
     shoppingCart: [{
         type: Schema.Types.ObjectId,
         ref: "Products"
