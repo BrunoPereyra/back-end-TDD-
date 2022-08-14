@@ -5,6 +5,20 @@ const SchemaUser = new Schema({
     passwordHash: String,
     fullName: String,
     Gmail: String,
+    typetUser: String,
+    productos: [{
+        type: Schema.Types.ObjectId,
+        ref: "Products"
+    }],
+    phonenumber: Number,
+    direction: Array,
+    compras: Array,
+    ventas: Array,
+    lastVisitedProduct: String,
+    shoppingCart: [{
+        type: Schema.Types.ObjectId,
+        ref: "Products"
+    }]
 })
 // SchemaUser.set("toJSON", {
 //     transform: (document, returnedObject) => {
