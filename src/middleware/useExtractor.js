@@ -1,7 +1,9 @@
-const {privatekey} = require("../config")
+const { privatekey } = require("../config")
 const jwt = require("jsonwebtoken");
+const Users = require("../models/users");
 
 module.exports = async (req, res, next) => {
+
     const authorization = req.get('authorization')
     let token = ""
 
@@ -10,7 +12,8 @@ module.exports = async (req, res, next) => {
     }
     try {
         const decodetoken = jwt.verify(token, privatekey)
-        if (!token || !decodetoken.id) {
+        const user = await Users.findById(decodetoken.id)
+        if (user == null) {
             return res.status(401).json({ error: 'token missing or invalid' })
         }
         req.idUser = decodetoken.id

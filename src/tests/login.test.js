@@ -1,14 +1,14 @@
 const Users = require("../models/users");
 const { POSTlogin, POSTsignup } = require("./helpers");
-
+const mongoose = require("mongoose")
+const { server } = require("../index")
 
 
 describe.only("POST - /login TEST", () => {
-    test("user login - ok", async () => {
+    test.only("user login - ok", async () => {
         await POSTsignup("nameUser", "password", "fullName", "Gmail");
 
         const ress = await POSTlogin("nameUser", "password")
-        console.log(ress.body.ress.token);
         expect(ress.body.ress.token).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
@@ -27,17 +27,17 @@ describe.only("POST - /login TEST", () => {
         expect(ress.body.ress).toBe("user doest not exist or incorrect password")
         expect(ress.statusCode).toBe(401)
     })
-    
-    test.only("user login - user missing password", async () => {
+
+    test("user login - user missing password", async () => {
         await POSTsignup("nameUser", "password", "fullName", "Gmail");
-        const ress = await POSTlogin("nameUser",2)
+        const ress = await POSTlogin("nameUser", 2)
         expect(ress.body.ress).toBe("missing password or incorrect data")
         expect(ress.statusCode).toBe(400)
     })
     test("user login - user missing userName", async () => {
         await POSTsignup("nameUser", "password", "fullName", "Gmail");
 
-        const ress = await POSTlogin(2,"aa")
+        const ress = await POSTlogin(2, "aa")
         expect(ress.body.ress).toBe("missing nameUser or incorrect data")
         expect(ress.statusCode).toBe(400)
     })
@@ -51,3 +51,8 @@ describe.only("POST - /login TEST", () => {
 
 
 })
+
+afterAll(() => {
+    mongoose.connection.close()
+    server.close()
+});
