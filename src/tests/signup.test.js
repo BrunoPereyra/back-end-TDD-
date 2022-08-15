@@ -4,7 +4,7 @@ const { POSTsignup } = require("./helpers");
 const Users = require("../models/users")
 
 
-
+// TIPO DE USUARIO FALTA
 describe("POST - /signup TEST", () => {
     test("correct data", async () => {
         await Users.deleteMany({})
@@ -25,7 +25,7 @@ describe("POST - /signup TEST", () => {
         expect(ress.body.ress).toBe("userRepeat");
         expect(ress.statusCode).toBe(203);
     })
-    test.only("malformed data or missing", async () => {
+    test("malformed data or missing", async () => {
         const ress = await POSTsignup("passwaaaord", "fullNaaaame","Gmail");
         expect(ress.body.ress == "malformed data or missing" || "name user > 5").toBeTruthy()
         expect(ress.statusCode).toBe(400)

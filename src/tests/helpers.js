@@ -36,4 +36,17 @@ const POSTlogin = async (
 
     return ress
 }
-module.exports = { POSTsignup, POSTlogin }
+const POSTcreateProduct = async ({
+    nameProduct = false,
+    type = false,
+    characteristic = false,
+    stock = false,
+}) => {
+    const token = ""
+    const ress = await api()
+        .post("/createProduct")
+        .set("Content-type", "application/json")
+        .set('Authorization', 'Bearer ' + token)
+    return ress
+}
+module.exports = { POSTsignup, POSTlogin, POSTcreateProduct }
