@@ -7,11 +7,11 @@ const Users = require("../models/users")
 
 describe("POST - /createProduct TEST", () => {
 
-    test.only("POST - correct data", async () => {
+    test("POST - correct data", async () => {
 
         const ress = await POSTcreateProduct(
             nameProduct = "este es el nombre",
-            type = "new",
+            type = "used",
             characteristic = [
                 creadoEn = "china",
                 characteristic = "esto es napanapskapojsap"
@@ -19,14 +19,16 @@ describe("POST - /createProduct TEST", () => {
             stock = 10
         )
 
-        const Product = await Products.findById({ _id: "este es el nombre" })
+        const Product = await Products.findById(ress.body.ress._id)
+        const user = await Users.find({ Products: Product.id })
 
         console.log(ress.body.ress._id);
 
-        expect(ress.body.ress.nameProduct).toBe(Product.nameProduct)
+        expect(ress.body.ress._id).toBe(Product.id)
         expect(user != null).toBeTruthy()
         expect(ress.statusCode).toBe(201)
     })
+
     test("POST - missing nameProduct or malforme", async () => {
 
         const ress = await POSTcreateProduct(
@@ -59,17 +61,28 @@ describe("POST - /createProduct TEST", () => {
         expect(ress.statusCode).toBe(401)
     })
 
-    test("POST - missing type or malformed", async () => {
+    test("POST - missing characteristic or malformed", async () => {
 
         const ress = await POSTcreateProduct(
             nameProduct = "este es el nombre",
             type = "new",
+            stock
+            = 10
+        )
+
+        expect(ress.body.ress).toBe("missing data or malformed")
+        expect(ress.statusCode).toBe(401)
+    })
+
+    test("POST - missing stock or malformed", async () => {
+
+        const ress = await POSTcreateProduct(
+            nameProduct = "este es el nombre",
+            type = "used",
             characteristic = [
                 creadoEn = "china",
                 characteristic = "esto es napanapskapojsap"
             ],
-            stock
-            = 10
         )
 
         expect(ress.body.ress).toBe("missing data or malformed")
