@@ -2,6 +2,8 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjk4NDUyYzVmNDYyMWM3MTc5OTg3YSIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjA1ODcxNzB9.s05qsvqQWWoLjvhoiA7ve06hdw2aCW5AUAmQ7uAfc2w"
+
 const POSTsignup = async (
     nameUser = false,
     password = false,
@@ -42,7 +44,6 @@ const POSTcreateProduct = async (
     characteristic = false,
     stock = false,
 ) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjk4NDUyYzVmNDYyMWM3MTc5OTg3YSIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjA1ODcxNzB9.s05qsvqQWWoLjvhoiA7ve06hdw2aCW5AUAmQ7uAfc2w"
     const data = {
         nameProduct,
         type,
@@ -57,4 +58,16 @@ const POSTcreateProduct = async (
 
     return ress
 }
-module.exports = { POSTsignup, POSTlogin, POSTcreateProduct }
+const POSTproductFeedback = async (comment) => {
+    const data = {
+        comment,
+        IdProduct
+    }
+    const ress = await api
+        .post("/productFeedbackcomm")
+        .set("Content-type", "application/json")
+        .set('Authorization', 'Bearer ' + token)
+        .send(data)
+    return ress
+}
+module.exports = { POSTsignup, POSTlogin, POSTcreateProduct, POSTproductFeedback }
