@@ -2,8 +2,8 @@ const { model, Schema } = require("mongoose")
 
 const SchemaProductFeedback = new Schema({
     comment: String,
-    likes: 1,
-    deslikes: 1,
+    likes: { type: Number, default: 1 },
+    deslikes: { type: Number, default: 1 },
     user: [{
         type: Schema.Types.ObjectId,
         ref: "Users"

@@ -10,7 +10,8 @@ app.use(express.json())
 
 app.use("/signup", require("./routes/signup.routes"))
 app.use("/login", require("./routes/login.routes"))
-app.use("/createProduct",useExtractor,require("./routes/products.routes"))
+app.use("/createProduct", useExtractor, require("./routes/products.routes"))
+app.use("/productFeedbackcomm", useExtractor, require("./routes/productFeedBack.routes"))
 
 app.use(handleErrors)
 app.use(notFound)
@@ -20,4 +21,4 @@ const server = app.listen(config.PORT, () => {
     console.log("server on port 3000");
 })
 
-module.exports = { server,app }
+module.exports = { server, app }

@@ -58,7 +58,7 @@ const POSTcreateProduct = async (
 
     return ress
 }
-const POSTproductFeedback = async (comment) => {
+const POSTproductFeedback = async (comment = "", IdProduct = "aaaa") => {
     const data = {
         comment,
         IdProduct
