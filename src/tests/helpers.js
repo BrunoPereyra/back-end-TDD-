@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjk4NDUyYzVmNDYyMWM3MTc5OTg3YSIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjA1ODcxNzB9.s05qsvqQWWoLjvhoiA7ve06hdw2aCW5AUAmQ7uAfc2w"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjk4NDUyYzVmNDYyMWM3MTc5OTg3YSIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjExMDk1ODZ9.1QwmGq8TJoUHbfH-EDVIGf-3eaf0LTB7kHpjxj567W8"
 
 const POSTsignup = async (
     nameUser = false,
@@ -70,4 +70,16 @@ const POSTproductFeedback = async (comment = "", IdProduct = "aaaa") => {
         .send(data)
     return ress
 }
-module.exports = { POSTsignup, POSTlogin, POSTcreateProduct, POSTproductFeedback }
+const GETproducts = async (nameProduct = false, id = false) => {
+    const ress = await api
+        .get(`/products?${"nameProduct=" + nameProduct}+
+           ${id ? `&id=${id}` : ""
+            }`)
+        .set('Accept', 'application/json')
+        .set('Authorization', 'Bearer ' + token)
+        .expect("Content-Type", /json/)
+    return ress
+
+}
+
+module.exports = { POSTsignup, POSTlogin, POSTcreateProduct, POSTproductFeedback, GETproducts }

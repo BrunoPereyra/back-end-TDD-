@@ -12,6 +12,7 @@ app.use("/signup", require("./routes/signup.routes"))
 app.use("/login", require("./routes/login.routes"))
 app.use("/createProduct", useExtractor, require("./routes/products.routes"))
 app.use("/productFeedbackcomm", useExtractor, require("./routes/productFeedBack.routes"))
+app.use("/products",useExtractor, require("./routes/GETproducts.routes"))
 
 app.use(handleErrors)
 app.use(notFound)
