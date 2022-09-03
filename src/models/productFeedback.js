@@ -4,7 +4,7 @@ const SchemaProductFeedback = new Schema({
     comment: String,
     likes: { type: Number, default: 1 },
     deslikes: { type: Number, default: 1 },
-    user: [{
+    Users: [{
         type: Schema.Types.ObjectId,
         ref: "Users"
     }],
@@ -12,6 +12,7 @@ const SchemaProductFeedback = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Products"
     }],
+    date: Date,
 
 })
 const ProductsFeedback = model("ProductsFeedback", SchemaProductFeedback)

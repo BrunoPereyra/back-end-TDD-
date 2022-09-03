@@ -4,11 +4,12 @@ const mongoose = require("mongoose")
 const { server } = require("../index")
 
 
-describe.only("POST - /login TEST", () => {
-    test.only("user login - ok", async () => {
-        await POSTsignup("nameUser", "password", "fullName", "Gmail");
+describe("POST - /login TEST", () => {
+    test("user login - ok", async () => {
+        // await POSTsignup("nameUser", "password", "fullName", "Gmail");
 
         const ress = await POSTlogin("nameUser", "password")
+        console.log(ress.body.ress.token)
         expect(ress.body.ress.token).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })

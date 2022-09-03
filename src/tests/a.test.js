@@ -7,7 +7,7 @@ const Users = require("../models/users")
 
 describe("POST - /createProduct TEST", () => {
 
-    test("POST - correct data", async () => {
+    test.only("POST - correct data", async () => {
 
         const ress = await POSTcreateProduct(
             nameProduct = "este es el nombre",
@@ -16,13 +16,13 @@ describe("POST - /createProduct TEST", () => {
                 creadoEn = "china",
                 characteristic = "esto es napanapskapojsap"
             ],
-            stock = 10
+            stock = 10,
+            price = 100
         )
 
-        const Product = await Products.findById(ress.body.ress._id)
+        const Product = await Products.findById(ress._body.ress._id)
         const user = await Users.find({ Products: Product.id })
 
-        console.log(ress.body.ress._id);
 
         expect(ress.body.ress._id).toBe(Product.id)
         expect(user != null).toBeTruthy()
@@ -38,7 +38,9 @@ describe("POST - /createProduct TEST", () => {
                 characteristic = "esto es napanapskapojsap"
             ],
             stock
-            = 10
+            = 10,
+            price = 100
+
         )
 
         expect(ress.body.ress).toBe("missing data or malformed")
@@ -54,7 +56,9 @@ describe("POST - /createProduct TEST", () => {
                 characteristic = "esto es napanapskapojsap"
             ],
             stock
-            = 10
+            = 10,
+            price = 100
+
         )
 
         expect(ress.body.ress).toBe("missing data or malformed")
@@ -67,7 +71,9 @@ describe("POST - /createProduct TEST", () => {
             nameProduct = "este es el nombre",
             type = "new",
             stock
-            = 10
+            = 10,
+            price = 100
+
         )
 
         expect(ress.body.ress).toBe("missing data or malformed")
@@ -83,6 +89,26 @@ describe("POST - /createProduct TEST", () => {
                 creadoEn = "china",
                 characteristic = "esto es napanapskapojsap"
             ],
+            price = 100
+
+        )
+
+        expect(ress.body.ress).toBe("missing data or malformed")
+        expect(ress.statusCode).toBe(401)
+    })
+
+    test("POST - missing price or malformed", async () => {
+
+        const ress = await POSTcreateProduct(
+            nameProduct = "este es el nombre",
+            type = "used",
+            characteristic = [
+                creadoEn = "china",
+                characteristic = "esto es napanapskapojsap"
+            ],
+            stock
+            = 10,
+
         )
 
         expect(ress.body.ress).toBe("missing data or malformed")

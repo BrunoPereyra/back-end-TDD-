@@ -8,10 +8,11 @@ const SchemaProducts = new Schema({
    }],
    type: String,
    characteristic: Array,
-   productFeedback: [{
+   ProductsFeedback: [{
       type: Schema.Types.ObjectId,
-      ref: "productFeedback"
+      ref: "ProductsFeedback"
    }],
+   date: Date,
    stock: Number,
    productStars: {
       cantidad: Number,
@@ -22,8 +23,14 @@ const SchemaProducts = new Schema({
          three: Number,
          four: Number,
          five: Number
-      }
+      },
    },
+   offers:Number,
+   price:Number,
+   keywordOne:String,
+   keywordTwo:String,
+   keywordThree:String,
+   keywordFour:String,
 
 })
 const Products = model("Products", SchemaProducts)

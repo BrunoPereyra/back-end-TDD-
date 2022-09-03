@@ -23,6 +23,7 @@ const signup = async (req, ress) => {
       passwordHash,
       fullName,
       Gmail,
+      date: new Date(),
    });
    const userRepeat = await Users.findOne({ nameUser: nameUser });
    if (userRepeat) {

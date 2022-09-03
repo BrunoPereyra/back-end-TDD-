@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjk4NDUyYzVmNDYyMWM3MTc5OTg3YSIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjExMDk1ODZ9.1QwmGq8TJoUHbfH-EDVIGf-3eaf0LTB7kHpjxj567W8"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTM4MDNlYjM5MGM5MDg5Njk5MDViYyIsImZ1bGxOYW1lIjl_HOMSSJBIrmXUzI-tHSfXHO9eEMrY9rbx0M"
 
 const POSTsignup = async (
     nameUser = false,
@@ -43,19 +43,21 @@ const POSTcreateProduct = async (
     type = false,
     characteristic = false,
     stock = false,
+    price = false
 ) => {
     const data = {
         nameProduct,
         type,
         characteristic,
-        stock
+        stock,
+        price
     }
     const ress = await api
         .post("/createProduct")
         .set("Content-type", "application/json")
         .set('Authorization', 'Bearer ' + token)
         .send(data)
-
+    console.log(ress.body)
     return ress
 }
 const POSTproductFeedback = async (comment = "", IdProduct = "aaaa") => {
@@ -70,9 +72,9 @@ const POSTproductFeedback = async (comment = "", IdProduct = "aaaa") => {
         .send(data)
     return ress
 }
-const GETproducts = async (nameProduct = false, id = false) => {
+const GETproducts = async (refProduct = false, id = false) => {
     const ress = await api
-        .get(`/products?${"nameProduct=" + nameProduct}+
+        .get(`/products?${"refProduct=" + refProduct}
            ${id ? `&id=${id}` : ""
             }`)
         .set('Accept', 'application/json')
@@ -82,4 +84,30 @@ const GETproducts = async (nameProduct = false, id = false) => {
 
 }
 
-module.exports = { POSTsignup, POSTlogin, POSTcreateProduct, POSTproductFeedback, GETproducts }
+const getAllMyProducts = async () => {
+    const ress = await api
+        .get("/AllMyProducts")
+        .set('Accept', 'application/json')
+        .set('Authorization', 'Bearer ' + token)
+        .expect("Content-Type", /json/)
+    return ress
+}
+const POSTmakeOffersOnProduct = async (id = false, offers = false) => {
+    const ress = await api
+        .post("/makeOffersOnProducts")
+        .set("Content-type", "application/json")
+        .set("Authorization", "Bearer" + token)
+        .send({ id, offers })
+        .expect("Content-Type", /json/)
+
+    return ress
+}
+module.exports = {
+    POSTsignup,
+    POSTlogin,
+    POSTcreateProduct,
+    POSTproductFeedback,
+    GETproducts,
+    POSTmakeOffersOnProduct,
+    getAllMyProducts
+}

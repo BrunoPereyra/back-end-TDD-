@@ -1,16 +1,22 @@
 const Products = require("../models/products")
 
 const GETproducts = async (req, ress) => {
-    const { nameProduct, id } = req.query
-    var product = ""
+    const { refProduct, id } = req.query
+
     if (id) {
+        var product = ""
         if (id.length == 24 && typeof id == "string") {
             try {
 
                 product = await Products.findById(id)
-                    .sort({ date: -1 })
                     .populate({
                         path: "user",
+                        select: {},
+                        match: {},
+                        options: { sort: { date: -1 } },
+                    })
+                    .populate({
+                        path: "productFeedback",
                         select: {},
                         match: {},
                         options: { sort: { date: -1 } },
@@ -35,45 +41,33 @@ const GETproducts = async (req, ress) => {
             })
         }
     }
-   console.log(nameProduct)
-    product = await Products.find({ nameProduct })
-        .sort({ date: -1 })
-        .populate({
-            path: "user",
-            select: {},
-            match: {},
-            options: { sort: { date: -1 } },
-        })
-    console.log(product)
-    // if (typeof (nameProduct) == "string") {
-    //     try {
-    //         product = await Products.find({ nameProduct: nameProduct })
-    //             .sort({ date: -1 })
-    //             .populate({
-    //                 path: "user",
-    //                 select: {},
-    //                 match: {},
-    //                 options: { sort: { date: -1 } },
-    //             })
 
-    //         if (product.length > 0) {
-    //             return ress.status(200).json({
-    //                 ress: product
-    //             })
-    //         } else {
-    //             return ress.status(404).json({
-    //                 ress: product
-    //             })
-    //         }
-    //     } catch (error) {
-    //         return ress.status(404).json({
-    //             ress: product
-    //         })
-    //     }
-    // } else {
-    //     return ress.status(200).json({
-    //         ress: "missing data or malformed nameProduct"
-    //     })
-    // }
+
+    if (typeof (refProduct) == "string") {
+
+        let product = await Products.find({
+            $or: [
+                { nameProduct: refProduct },
+                // { keywordOne: refProduct },
+                // { keywordTwo: refProduct },
+                // { keywordThree: refProduct },
+                // { keywordFour: refProduct }
+            ]
+        })
+        if (product.length == 0) {
+            return ress.status(404).json({
+                ress: "missing data or malformed refProduct"
+            })
+        } else if (product.length >= 1) {
+            return ress.status(200).json({
+                ress: product
+            })
+        }
+
+    } else {
+        return ress.status(200).json({
+            ress: "missing data or malformed refProduct"
+        })
+    }
 }
 module.exports = GETproducts

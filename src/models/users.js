@@ -5,6 +5,7 @@ const SchemaUser = new Schema({
     passwordHash: String,
     fullName: String,
     Gmail: String,
+    date: Date,
     typetUser: String,
     phonenumber: Number,
     direction: Array,
