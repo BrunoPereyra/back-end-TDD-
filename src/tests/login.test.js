@@ -5,8 +5,8 @@ const { server } = require("../index")
 
 
 describe("POST - /login TEST", () => {
-    test("user login - ok", async () => {
-        // await POSTsignup("nameUser", "password", "fullName", "Gmail");
+    test.only("user login - ok", async () => {
+        await POSTsignup("nameUser", "password", "fullName", "Gmail");
 
         const ress = await POSTlogin("nameUser", "password")
         console.log(ress.body.ress.token)

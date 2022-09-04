@@ -18,31 +18,30 @@ const ProductsFeedbackComm = async (req, ress) => {
         return ress.status(400).json({
             ress: "id product malformed or not exist or id != 24"
         })
-    } else if (comment.length < 5) {
+    } else if (comment.length < 4) {
 
         return ress.status(400).json({
+            ress: "comment is malformed or missing or comment > 5"
         })
-        ress: "comment is malformed or missing or comment > 5"
     }
 
     const productExist = await Products.findById(IdProduct)
-
     if (!productExist) {
         return ress.status(400).json({
             ress: "id product malformed or not exist or id != 24"
         })
     }
     try {
-
+        
         const ProductsFeedbackcomm = await new ProductsFeedback({
             comment,
             user: idUser,
-            Products: IdProduct, 
+            Products: IdProduct,
             date: new Date(),
         })
-
+        
         const SaveProductsFeedbackcomm = await ProductsFeedbackcomm.save()
-        productExist.productFeedback = await productExist.productFeedback.concat(SaveProductsFeedbackcomm._id)
+        productExist.ProductsFeedback= await productExist.ProductsFeedback.concat(SaveProductsFeedbackcomm._id)
         productExist.save()
         ress.status(201).json({
             ress: SaveProductsFeedbackcomm

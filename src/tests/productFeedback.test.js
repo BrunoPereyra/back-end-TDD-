@@ -7,12 +7,12 @@ const Products = require("../models/products")
 describe("POST - /productFeedbackcomm TEST", () => {
     test("POST - correct data", async () => {
         const ress = await POSTproductFeedback(
-            "aaaaaa",
-            "631121f8bc3bd19c2aff1486"
+            "aasa",
+            "6314c4b63818d83a5815da83"
         )
+
         const ProductsFeedbackcomm = await ProductsFeedback.findById(ress.body.ress._id)
         const product = await Products.find({ productFeedback: ress.body.ress.Products })
-
 
         expect(ress.body.ress).toMatchObject({ _id: ProductsFeedbackcomm._id })
         expect(product).toBeTruthy()
@@ -22,8 +22,8 @@ describe("POST - /productFeedbackcomm TEST", () => {
     test("POST - missing data or maldormed", async () => {
         const countFeedBackComm = await ProductsFeedback.countDocuments({});
         const ress = await POSTproductFeedback(
-            "aaaaaa",
-            "62fad15c4a49306413d261b9"
+            "aaaaa",
+            "6314c4b63818d83a5815da8"
         )
         const countFeedBackCommsave = await ProductsFeedback.countDocuments({});
 

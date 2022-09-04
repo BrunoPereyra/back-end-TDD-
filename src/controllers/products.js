@@ -30,7 +30,6 @@ const products = async (req, ress) => {
     
     try {
         const Productsave = await newProduct.save();
-        console.log(Productsave)
 
         const user = await Users.findById(idUser);
         user.Products = await user.Products.concat(Productsave.id);

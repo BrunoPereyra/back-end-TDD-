@@ -12,7 +12,6 @@ module.exports = async (req, res, next) => {
     }
     try {
         const decodetoken = jwt.verify(token, privatekey)
-        console.log(decodetoken);
         const user = await Users.findById(decodetoken.id)
         if (user == null) {
             return res.status(203).json({ error: 'token missing or invalid' })

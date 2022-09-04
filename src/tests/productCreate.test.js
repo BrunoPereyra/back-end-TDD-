@@ -7,7 +7,7 @@ const Users = require("../models/users")
 
 describe("POST - /createProduct TEST", () => {
 
-    test.only("POST - correct data", async () => {
+    test("POST - correct data", async () => {
 
         const ress = await POSTcreateProduct(
             nameProduct = "este es el nombre",

@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTM4MDNlYjM5MGM5MDg5Njk5MDViYyIsImZ1bGxOYW1lIjl_HOMSSJBIrmXUzI-tHSfXHO9eEMrY9rbx0M"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTRjNDU3YTFkNzdhMzE1NWI0OWUyYiIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjIzMDU0MzZ9.woAeKzi5wAOZr13xrDB43Wl0dY4DaNNgN4V83_9oAI8"
 
 const POSTsignup = async (
     nameUser = false,
@@ -55,9 +55,8 @@ const POSTcreateProduct = async (
     const ress = await api
         .post("/createProduct")
         .set("Content-type", "application/json")
-        .set('Authorization', 'Bearer ' + token)
+        .set('Authorization', 'bearer ' + token)
         .send(data)
-    console.log(ress.body)
     return ress
 }
 const POSTproductFeedback = async (comment = "", IdProduct = "aaaa") => {
