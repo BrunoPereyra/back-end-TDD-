@@ -11,9 +11,9 @@ describe("GET - /products:URL", () => {
         expect(ress.statusCode).toBe(200)
     })
     test("GET - id a coincidence", async () => {
-        const ress = await GETproducts("este es el nombre", "631121f8bc3bd19c2aff1486")
+        const ress = await GETproducts("este es el nombre", "6314c4b63818d83a5815da83")
         console.log(ress._body.ress)
-        expect(ress._body.ress._id == "631121f8bc3bd19c2aff1486").toBeTruthy()
+        expect(ress._body.ress._id == "6314c4b63818d83a5815da83").toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
     test("GET - there are no coincidences refProduct", async () => {

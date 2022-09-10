@@ -55,7 +55,7 @@ const POSTcreateProduct = async (
     const ress = await api
         .post("/createProduct")
         .set("Content-type", "application/json")
-        .set('Authorization', 'bearer ' + token)
+        .set('Authorization', 'Bearer ' + token)
         .send(data)
     return ress
 }
@@ -82,7 +82,6 @@ const GETproducts = async (refProduct = false, id = false) => {
     return ress
 
 }
-
 const getAllMyProducts = async () => {
     const ress = await api
         .get("/AllMyProducts")
@@ -91,14 +90,14 @@ const getAllMyProducts = async () => {
         .expect("Content-Type", /json/)
     return ress
 }
-const POSTmakeOffersOnProduct = async (id = false, offers = false) => {
+const POSTHandleProduct = async (idProduct = false, offers = false) => {
     const ress = await api
-        .post("/makeOffersOnProducts")
+        .post("/HandleProduct")
         .set("Content-type", "application/json")
-        .set("Authorization", "Bearer" + token)
-        .send({ id, offers })
+        .set("Authorization", "Bearer " + token)
+        .send({ idProduct, offers })
         .expect("Content-Type", /json/)
-
+    console.log(ress.body)
     return ress
 }
 module.exports = {
@@ -107,6 +106,6 @@ module.exports = {
     POSTcreateProduct,
     POSTproductFeedback,
     GETproducts,
-    POSTmakeOffersOnProduct,
+    POSTHandleProduct,
     getAllMyProducts
 }

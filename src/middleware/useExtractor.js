@@ -6,8 +6,7 @@ module.exports = async (req, res, next) => {
 
     const authorization = req.get('authorization')
     let token = ""
-
-    if (authorization && authorization.toLowerCase().startsWith("bearer")) {
+    if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
         token = authorization.substring(7)
     }
     try {

@@ -1,19 +1,19 @@
 const mongoose = require("mongoose")
 const { server } = require("../index")
 const Products = require("../models/products")
-const Users = require("../models/users")
-const { POSTmakeOffersOnProduct, getAllMyProducts } = require("./helpers")
+const { POSTHandleProduct, getAllMyProducts } = require("./helpers")
 
 
-describe("GET - /allProducts", () => {
+
+describe.only("GET - /allProducts", () => {
     test("get all products correct data", async () => {
         const ress = await getAllMyProducts()
 
-        console.log(ress._body.ress)
         expect(ress._body.ress).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
-    test("get all not products", async () => {
+    test.only("get all not products", async () => {
+        // cambiar idUser  para que este ok
         const ress = await getAllMyProducts()
 
         expect(ress._body.ress).toBe("not products")
@@ -23,17 +23,22 @@ describe("GET - /allProducts", () => {
 
 describe("POST - /makeOffersOnProducts", () => {
     test("makeOffersOnProducts correct data", async () => {
-        const ress = await POSTmakeOffersOnProduct("62fad2f3350f84e4f7590b36", -10)
-        const product = await Products.findById("62fad2f3350f84e4f7590b36")
-
+        const ress = await POSTHandleProduct("6314c4b63818d83a5815da83", -99)
+        const product = await Products.findById("6314c4b63818d83a5815da83")
 
         expect(ress._body.ress.offers).toBe(product.offers)
         expect(ress.statusCode).toBe(201)
     })
-    test("makeOffersOnProducts missing data", async () => {
-        const ress = await POSTmakeOffersOnProduct()
+    test("unauthorized or product not exist", async () => {
+        const ress = await POSTHandleProduct("6314c4b63818d83a5815da8", -20)
 
-        expect(ress._body.ress).toBe("Identificación del producto incorrecta u oferta fallida")
+        expect(ress._body.ress).toBe("unauthorized or product not exist")
+        expect(ress.statusCode).toBe(401)
+    })
+    test("unauthorized or product not exist", async () => {
+        const ress = await POSTHandleProduct("6314c4b63818d83a5815da83", -100)
+
+        expect(ress._body.ress).toBe("offer rejected")
         expect(ress.statusCode).toBe(400)
     })
 })

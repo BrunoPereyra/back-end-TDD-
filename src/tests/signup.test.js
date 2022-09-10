@@ -5,11 +5,11 @@ const Users = require("../models/users")
 
 
 describe("POST - /signup TEST", () => {
-    test("correct data", async () => {
-        await Users.deleteMany({})
+    test.only("correct data", async () => {
+        // await Users.deleteMany({})
 
-        const ress = await POSTsignup("nameUser", "password", "fullName", "Gmail");
-        const user = await Users.findOne({ nameUser: "nameUser" })
+        const ress = await POSTsignup("nameUsera", "password", "fullName", "Gmail");
+        const user = await Users.findOne({ nameUser: "nameUsera" })
 
 
         expect(ress.body.ress.nameUser).toBe(user.nameUser);

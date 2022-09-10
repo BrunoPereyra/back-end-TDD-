@@ -16,7 +16,7 @@ const GETproducts = async (req, ress) => {
                         options: { sort: { date: -1 } },
                     })
                     .populate({
-                        path: "productFeedback",
+                        path: "ProductsFeedback",
                         select: {},
                         match: {},
                         options: { sort: { date: -1 } },

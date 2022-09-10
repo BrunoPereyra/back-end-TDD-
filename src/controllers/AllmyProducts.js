@@ -2,15 +2,15 @@ const Users = require("../models/users")
 
 const AllMyProducts = async (req, ress) => {
     const idUser = req.idUser
-    const user = await Users.findById("630f794c2b5915e08294a5f2")
+    const user = await Users.findById(idUser)
         .populate({
             path: "Products",
             select: {},
             match: {},
             options: { sort: { date: -1 } },
         })
-    console.log(user.Products);
-    if (user.Products != undefined) {
+
+    if (user.Products[0] !== undefined ) {
         let products =  user.Products
         ress.status(200).json({
             ress: products
