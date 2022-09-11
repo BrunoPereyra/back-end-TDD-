@@ -5,15 +5,15 @@ const { POSTHandleProduct, getAllMyProducts } = require("./helpers")
 
 
 
-describe.only("GET - /allProducts", () => {
+describe("GET - /allProducts", () => {
     test("get all products correct data", async () => {
         const ress = await getAllMyProducts()
 
         expect(ress._body.ress).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
-    test.only("get all not products", async () => {
-        // cambiar idUser  para que este ok
+    test("get all not products", async () => {
+        // cambiar idUser  para que este ok in controllers
         const ress = await getAllMyProducts()
 
         expect(ress._body.ress).toBe("not products")

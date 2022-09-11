@@ -100,6 +100,15 @@ const POSTHandleProduct = async (idProduct = false, offers = false) => {
     console.log(ress.body)
     return ress
 }
+const POSTshoppingCart = async (idProduct = false, Delete = false) => {
+    const ress = await api
+        .post("/postshoppingCart")
+        .set("Content-type", "application/json")
+        .set("Authorization", "Bearer " + token)
+        .send({ idProduct, Delete})
+        .expect("Content-Type", /json/)
+    return ress
+}
 module.exports = {
     POSTsignup,
     POSTlogin,
@@ -107,5 +116,6 @@ module.exports = {
     POSTproductFeedback,
     GETproducts,
     POSTHandleProduct,
-    getAllMyProducts
+    getAllMyProducts,
+    POSTshoppingCart
 }
