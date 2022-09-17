@@ -3,6 +3,7 @@ const Products = require("../models/products")
 const { server } = require("../index")
 const mongoose = require("mongoose")
 const Users = require("../models/users")
+const login = require("../controllers/login")
 
 
 describe("POST - /createProduct TEST", () => {
@@ -10,25 +11,45 @@ describe("POST - /createProduct TEST", () => {
     test("POST - correct data", async () => {
 
         const ress = await POSTcreateProduct(
-            nameProduct = "este es el nombre",
+            nameProduct = "este es el nombre two",
             type = "used",
             characteristic = [
                 creadoEn = "china",
                 characteristic = "esto es napanapskapojsap"
             ],
             stock = 10,
-            price = 100
+            price = 100,
+            keywordOne = "a",
+            keywordTwo = "s",
+            keywordThree = "sca",
+            keywordFour = "az",
         )
-
         const Product = await Products.findById(ress._body.ress._id)
-        const user = await Users.find({ Products: Product.id })
+        const user = await Users.find({ Products: Product._id })
 
 
         expect(ress.body.ress._id).toBe(Product.id)
         expect(user != null).toBeTruthy()
         expect(ress.statusCode).toBe(201)
     })
-
+    test.only("POST - one word for each keyword", async () => {
+        const ress = await POSTcreateProduct(
+            nameProduct = "este es el nombre two",
+            type = "used",
+            characteristic = [
+                creadoEn = "china",
+                characteristic = "esto es napanapskapojsap"
+            ],
+            stock = 10,
+            price = 100,
+            keywordOne = "a",
+            keywordTwo = "s",
+            keywordThree = "s ca",
+            keywordFour = "az",
+        )
+        expect(ress._body.ress).toBe("one word for each keyword")
+        expect(ress.statusCode).toBe(401)
+    })
     test("POST - missing nameProduct or malforme", async () => {
 
         const ress = await POSTcreateProduct(

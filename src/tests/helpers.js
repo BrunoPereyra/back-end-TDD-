@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTRjNDU3YTFkNzdhMzE1NWI0OWUyYiIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjIzMDU0MzZ9.woAeKzi5wAOZr13xrDB43Wl0dY4DaNNgN4V83_9oAI8"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjVmNjc0ZWYxZjAxOTFmMmZlOTYxMCIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjM0MzIzNTl9.lFWm75z-m2r_fD19YvbQZ4e2BFkwJ91fd1B4HCmq4bQ"
 
 const POSTsignup = async (
     nameUser = false,
@@ -43,14 +43,22 @@ const POSTcreateProduct = async (
     type = false,
     characteristic = false,
     stock = false,
-    price = false
+    price = false,
+    keywordOne = "",
+    keywordTwo = "",
+    keywordThree = "",
+    keywordFour = "",
 ) => {
     const data = {
         nameProduct,
         type,
         characteristic,
         stock,
-        price
+        price,
+        keywordOne,
+        keywordTwo,
+        keywordThree,
+        keywordFour
     }
     const ress = await api
         .post("/createProduct")
@@ -105,7 +113,7 @@ const POSTshoppingCart = async (idProduct = false, Delete = false) => {
         .post("/postshoppingCart")
         .set("Content-type", "application/json")
         .set("Authorization", "Bearer " + token)
-        .send({ idProduct, Delete})
+        .send({ idProduct, Delete })
         .expect("Content-Type", /json/)
     return ress
 }
