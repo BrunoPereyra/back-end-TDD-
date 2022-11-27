@@ -5,16 +5,16 @@ const { server } = require("../index")
 
 
 describe("POST - /login TEST", () => {
-    test.only("user login - ok", async () => {
+    test("user login - ok", async () => {
         await POSTsignup("nameUser", "password", "fullName", "Gmail");
 
-        const ress = await POSTlogin("nameUsera", "password")
+        const ress = await POSTlogin("nameUser", "password")
         console.log(ress.body.ress.token)
         expect(ress.body.ress.token).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
     test("user login - incorrect password", async () => {
-        await POSTsignup("nameUsera", "passwords", "fullName", "Gmail");
+        await POSTsignup("nameUserb", "passwords", "fullName", "Gmail");
 
         const ress = await POSTlogin("nameUser", "password2")
         expect(ress.body.ress).toBe("user doest not exist or incorrect password")

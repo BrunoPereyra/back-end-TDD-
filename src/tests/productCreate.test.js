@@ -3,7 +3,6 @@ const Products = require("../models/products")
 const { server } = require("../index")
 const mongoose = require("mongoose")
 const Users = require("../models/users")
-const login = require("../controllers/login")
 
 
 describe("POST - /createProduct TEST", () => {
@@ -32,7 +31,7 @@ describe("POST - /createProduct TEST", () => {
         expect(user != null).toBeTruthy()
         expect(ress.statusCode).toBe(201)
     })
-    test.only("POST - one word for each keyword", async () => {
+    test("POST - one word for each keyword", async () => {
         const ress = await POSTcreateProduct(
             nameProduct = "este es el nombre two",
             type = "used",

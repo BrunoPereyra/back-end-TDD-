@@ -6,7 +6,7 @@ const Users = require("../models/users")
 
 describe("POST - /signup TEST", () => {
     test("correct data", async () => {
-        await Users.deleteMany({})
+        // await Users.deleteMany({})
 
         const ress = await POSTsignup("nameUserb", "password", "fullName", "Gmail");
         const user = await Users.findOne({ nameUser: "nameUserb" })
@@ -15,7 +15,7 @@ describe("POST - /signup TEST", () => {
         expect(ress.body.ress.nameUser).toBe(user.nameUser);
         expect(ress.statusCode).toBe(201);
     });
-    test.only("repeat NameUser", async () => {
+    test("repeat NameUser", async () => {
         const user = await Users.find({ nameUser: "nameUserb" })
         const ress = await POSTsignup("nameUserb", "password", "fullName", "Gmail");
 

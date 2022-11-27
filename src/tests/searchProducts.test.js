@@ -6,14 +6,13 @@ const { GETproducts } = require("./helpers")
 
 describe("GET - /products:URL", () => {
     test("GET - refProduct ok", async () => {
-        const ress = await GETproducts("este es el nombre")
+        const ress = await GETproducts("sca")
         expect(JSON.stringify(ress._body.ress).length >= 1).toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
     test("GET - id a coincidence", async () => {
-        const ress = await GETproducts("este es el nombre", "6314c4b63818d83a5815da83")
-        console.log(ress._body.ress)
-        expect(ress._body.ress._id == "6314c4b63818d83a5815da83").toBeTruthy()
+        const ress = await GETproducts("este es el nombre", "633a1d0741c39fb40a608113")
+        expect(ress._body.ress._id == "633a1d0741c39fb40a608113").toBeTruthy()
         expect(ress.statusCode).toBe(200)
     })
     test("GET - there are no coincidences refProduct", async () => {

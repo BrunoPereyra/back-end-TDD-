@@ -2,7 +2,7 @@ const supertest = require("supertest")
 const { app } = require("../index")
 const api = supertest(app)
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjVmNjc0ZWYxZjAxOTFmMmZlOTYxMCIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjM0MzIzNTl9.lFWm75z-m2r_fD19YvbQZ4e2BFkwJ91fd1B4HCmq4bQ"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzM2ExYzViM2I3OTc0ZjdhZTk3YTBlNCIsImZ1bGxOYW1lIjoiZnVsbE5hbWUiLCJpYXQiOjE2NjQ3NTI4MTl9.u5SNv8gE6S1wbqc17YuENWebPZ5iV64hp64dtZAW8d0"
 
 const POSTsignup = async (
     nameUser = false,
@@ -117,6 +117,14 @@ const POSTshoppingCart = async (idProduct = false, Delete = false) => {
         .expect("Content-Type", /json/)
     return ress
 }
+const ProductsfortheUser = async () => {
+    const ress = await api
+        .get("/productsfortheUser")
+        .set('Accept', 'application/json')
+        .set('Authorization', 'Bearer ' + token)
+        .expect("Content-Type", /json/)
+    return ress
+}
 module.exports = {
     POSTsignup,
     POSTlogin,
@@ -125,5 +133,6 @@ module.exports = {
     GETproducts,
     POSTHandleProduct,
     getAllMyProducts,
-    POSTshoppingCart
+    POSTshoppingCart,
+    ProductsfortheUser
 }

@@ -29,7 +29,6 @@ const postshoppingCart = async (req, ress) => {
                     ress: product._id
                 })
             } else {
-                console.log("OJI0JSO0ISÍOU")
                 return ress.status(200).send({
                     ress: "all product deletes"
                 })

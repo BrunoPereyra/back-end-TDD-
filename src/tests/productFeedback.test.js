@@ -8,7 +8,7 @@ describe("POST - /productFeedbackcomm TEST", () => {
     test("POST - correct data", async () => {
         const ress = await POSTproductFeedback(
             "aasa",
-            "6314c4b63818d83a5815da83"
+            "633a1d0741c39fb40a608113"
         )
 
         const ProductsFeedbackcomm = await ProductsFeedback.findById(ress.body.ress._id)

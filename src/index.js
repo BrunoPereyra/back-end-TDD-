@@ -16,6 +16,7 @@ app.use("/products",useExtractor, require("./routes/GETproducts.routes"))
 app.use("/AllMyProducts",useExtractor,require("./routes/AllmyProducts.routes"))
 app.use("/HandleProduct",useExtractor,require("./routes/HandleProducts.routes"))
 app.use("/postshoppingCart",useExtractor, require("./routes/shoppingCart.routes"))
+app.use("/productsfortheUser",useExtractor,require("./routes/productsfortheUser.routes"))
 
 app.use(handleErrors)
 app.use(notFound)
